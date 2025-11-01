@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+*.env
+
+# macOS
+.DS_Store
+
+# Flask/Uploads
+uploads/
+sorted/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+gunicorn.out
+gunicorn.err
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Caddy
+Caddyfile
+
+# System files
+Thumbs.db
