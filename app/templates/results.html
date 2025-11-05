@@ -9,10 +9,12 @@
 </head>
 
 <body class="min-h-screen bg-gray-50 text-gray-900 dark:bg-neutral-900 dark:text-gray-200">
-    <div class="mx-auto max-w-5xl px-4 py-10">
-        <div class="mb-6">
+    <div class="mx-auto max-w-5xl px-4 py-10 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">Sorted Images by Person</h1>
+
             <a href="{{ url_for('index') }}"
-                class="focus:outline-none focus:ring-2 focus:ring-blue-600 inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-200 transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"
                     aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -23,31 +25,35 @@
             </a>
         </div>
 
-        <h1 class="text-3xl font-bold tracking-tight">Sorted Images by Person</h1>
-
         <div class="mt-4">
             <a href="{{ url_for('download_sorted_zip') }}"
-                class="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">
+                class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">
                 Download All
             </a>
         </div>
 
         {% for person in persons %}
-        <section class="mt-8">
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-400">{{ person.name }}</h2>
-            <div class="my-3 flex flex-wrap gap-2">
+        <section class="mt-8 bg-white dark:bg-neutral-800 p-4 rounded-md shadow-sm space-y-3">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ person.name }}</h2>
+
+            <div class="flex flex-wrap gap-3">
                 {% for img in person.images %}
                 <img src="{{ url_for('files', subpath=person.name + '/' + img) }}" alt="{{ img }}"
-                    class="h-24 w-auto rounded-md border border-gray-300 bg-white object-contain" loading="lazy"
-                    decoding="async">
+                    class="h-24 w-auto rounded-md border border-gray-300 bg-white object-contain shadow-sm"
+                    loading="lazy" decoding="async">
                 {% endfor %}
             </div>
             <a href="{{ url_for('download_person_zip', person_name=person.name) }}"
-                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-200">
                 Download {{ person.name }}
             </a>
         </section>
         {% endfor %}
+    </div>
+
+    <!-- image preview modal -->
+    <div id="imageModal" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
+        <img id="modalImg" class="max-h-[90%] max-w-[90%] rounded-md shadow-lg" src="" alt="Preview">
     </div>
 
     <script src="{{ url_for('static', filename='js/results.js') }}"></script>
