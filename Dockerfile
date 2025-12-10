@@ -20,7 +20,15 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements first for better caching
 COPY requirements.txt .
 
-# Install Python dependencies
+# Install Python dependencies in stages to reduce memory usage
+# Install numpy first as it's needed by other packages
+RUN pip install --no-cache-dir numpy==2.3.4
+
+# Install dlib with single-threaded build to reduce memory
+ENV DLIB_NO_GUI_SUPPORT=1
+RUN pip install --no-cache-dir dlib==20.0.0 --verbose
+
+# Install remaining dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
