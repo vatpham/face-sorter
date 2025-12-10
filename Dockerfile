@@ -4,7 +4,7 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies required for dlib and face_recognition
+# Install system dependencies required for dlib, face_recognition, and Node.js
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -15,10 +15,15 @@ RUN apt-get update && apt-get install -y \
     libboost-python-dev \
     libboost-thread-dev \
     libmagic1 \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
-COPY requirements.txt .
+# Copy application code
+COPY . .
+
+# Install npm dependencies and build CSS
+RUN npm install && npm run build:css
 
 # Install Python dependencies in stages to reduce memory usage
 # Install numpy first as it's needed by other packages

@@ -27,7 +27,13 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Set up environment variables:
+4. Install Node.js dependencies and build CSS:
+```bash
+npm install
+npm run build:css
+```
+
+5. Set up environment variables:
 ```bash
 cp .env.example .env  # Edit .env and set your FLASK_SECRET_KEY
 ```

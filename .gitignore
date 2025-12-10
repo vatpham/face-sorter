@@ -5,6 +5,13 @@ __pycache__/
 *.pyd
 *.so
 
+# Node.js
+node_modules/
+package-lock.json
+
+# Generated CSS
+app/static/css/style.css
+
 # Virtual environment
 .venv/
 env/
