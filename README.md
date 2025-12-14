@@ -49,6 +49,17 @@ Or using Flask CLI:
 flask run
 ```
 
+## Docker
+
+Run locally with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+- Visit: http://localhost:5000
+- Set `FLASK_SECRET_KEY` via `.env`
+
 ## Usage
 
 1. Upload multiple images (JPG, JPEG, PNG formats)
