@@ -1,6 +1,7 @@
 import os
 import io
 import time
+import re
 import zipfile
 from flask import (
     request,
@@ -103,12 +104,23 @@ def register_routes(app, limiter):
             for person_folder in sorted(os.listdir(user_sorted)):
                 folder_path = os.path.join(user_sorted, person_folder)
                 if os.path.isdir(folder_path):
+                    match = re.match(r"person_(\d+)$", person_folder)
+                    if match:
+                        display_name = f"Person {int(match.group(1)) + 1}"
+                    else:
+                        display_name = person_folder.replace("_", " ").title()
                     images = [
                         img
                         for img in os.listdir(folder_path)
                         if img.lower().endswith((".jpg", ".jpeg", ".png"))
                     ]
-                    persons.append({"name": person_folder, "images": images})
+                    persons.append(
+                        {
+                            "name": person_folder,
+                            "display_name": display_name,
+                            "images": images,
+                        }
+                    )
 
         resp = make_response(render_template("results.html", persons=persons))
         resp.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"

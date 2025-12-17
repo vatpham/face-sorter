@@ -34,7 +34,7 @@
 
         {% for person in persons %}
         <section class="mt-8 bg-white dark:bg-neutral-800 p-4 rounded-md shadow-sm space-y-3">
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ person.name }}</h2>
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ person.display_name }}</h2>
 
             <div class="flex flex-wrap gap-3">
                 {% for img in person.images %}
@@ -45,7 +45,7 @@
             </div>
             <a href="{{ url_for('download_person_zip', person_name=person.name) }}"
                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-200">
-                Download {{ person.name }}
+                Download {{ person.display_name }}
             </a>
         </section>
         {% endfor %}
