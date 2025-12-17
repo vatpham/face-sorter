@@ -16,6 +16,7 @@ from flask import (
     session,
     send_from_directory,
     current_app,
+    jsonify,
 )
 from werkzeug.utils import secure_filename
 
@@ -208,3 +209,29 @@ def register_routes(app, limiter):
             ),
             429,
         )
+
+    @app.route("/rename-person", methods=["POST"])
+    def rename_person():
+        sid, _, user_sorted = current_user_dirs()
+        data = request.get_json()
+        old_name = data.get("old_name", "").strip()
+        new_name = data.get("new_name", "").strip()
+
+        if not old_name or not new_name:
+            return jsonify({"error": "Invalid names"}), 400
+
+        old_path = os.path.join(user_sorted, old_name)
+        new_path = os.path.join(user_sorted, new_name)
+
+        if not os.path.isdir(old_path):
+            return jsonify({"error": "Folder not found"}), 404
+
+        if os.path.exists(new_path):
+            return jsonify({"error": "Name already exists"}), 400
+
+        try:
+            os.rename(old_path, new_path)
+            return jsonify({"success": True}), 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
