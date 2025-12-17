@@ -9,7 +9,8 @@
 </head>
 
 <body class="min-h-screen bg-gray-50 text-gray-900 dark:bg-neutral-900 dark:text-gray-200">
-    <div class="mx-auto max-w-3xl px-4 py-10">
+    {% include '_navbar.html' %}
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10 pt-12">
         <h1 class="text-3xl font-bold tracking-tight">Upload Images to Sort by Person</h1>
 
         <form id="uploadForm" method="post" enctype="multipart/form-data" class="mt-6 space-y-4">
@@ -28,7 +29,7 @@
                 </button>
 
                 <button type="button" id="clearBtn"
-                    class="hidden inline-flex items-center rounded-md border-2 border-red-800 px-6 py-2 text-sm font-semibold text-red-600 shadow-sm hover:bg-red-800 hover:text-white transition-colors duration-200">
+                    class="hidden inline-flex items-center rounded-md border-2 border-red-600 px-6 py-2 text-sm font-semibold text-red-600 shadow-sm hover:bg-red-600 hover:text-white transition-colors duration-200">
                     Clear
                 </button>
             </div>
