@@ -36,3 +36,6 @@ sorted/*
 
 # Logs
 *.log
+
+# Tests
+tests/
